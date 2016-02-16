@@ -1,0 +1,36 @@
+#include<iostream>
+#include"Environment.h"
+void Environment::setEnv(){
+	capacity_ = rand() % 1001+100;
+	type_ = rand() % 4;
+	switch(type_){
+	case 0:
+		strcpy(typeName_, "Tundra");
+		food_ = rand() % 30;
+		break;
+	case 1:
+		strcpy(typeName_, "Forest");
+		food_ = rand() % 101;
+		break;
+	case 2:
+		strcpy(typeName_, "Plains");
+		food_ = rand() % 101;
+		break;
+	case 3:
+		strcpy(typeName_, "Mountains");
+		food_ = rand() % 40; 
+		break;
+	}
+	
+}
+void Environment::giveEnvironment(Species spec[]){
+	int size = sizeof(spec);
+	int i = 0;
+	while (i < size){
+		spec[i].setEnvo(*this);
+	}
+
+}
+void Environment::display(){
+
+}

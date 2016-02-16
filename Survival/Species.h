@@ -1,5 +1,6 @@
 #ifndef species_
 #define species_
+#include"Environment.h"
 class Species{
 	char name_[20];
 	int lifespan_;
@@ -8,6 +9,7 @@ class Species{
 	int gender_; //0 = male 1 = female
 	int strength_;
 	int speed_;
+	Environment envo;
 public:
 		void set();
 		void drastic();
@@ -19,6 +21,8 @@ public:
 		void change();
 		void injury();
 		void heal();
+		void setEnvo(Environment&);
+		void dead();
 
 
 };

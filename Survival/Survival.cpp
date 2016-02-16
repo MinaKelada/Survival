@@ -1,8 +1,6 @@
-#include"Species.h"
-#include"Disease.h"
-#include"Disaster.h"
-#include"Envo.h"
+#include"Life.h"
 int main(void){
-	
+	Life Era;
+	Era.start();
 	return 0;
 }
