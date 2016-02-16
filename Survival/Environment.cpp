@@ -1,8 +1,10 @@
 #include<iostream>
 #include"Environment.h"
+#include<time.h>
 #include"Species.h"
 using namespace std;
 void Environment::setEnv(){
+	srand(time(NULL));
 	capacity_ = rand() % 1001+100;
 	type_ = rand() % 4;
 	switch(type_){
@@ -31,4 +33,10 @@ void Environment::giveEnvironment(Species& spec){
 }
 void Environment::display(){
 	cout << "In environment: " << typeName_ << endl;
+}
+Environment& Environment::operator=(const Environment& other){
+	food_ = other.food_;
+	type_ = other.type_;
+	strcpy(typeName_, other.typeName_);
+	return *this;
 }

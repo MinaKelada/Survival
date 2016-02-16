@@ -14,7 +14,6 @@ void Life::start(){
 	while (i < 5)
 	{
 		en.giveEnvironment(e1[i]);
-		e1[i].displayName();
 		e1[i].displayAtt();
 		e1[i].displayEnvo();
 		i++;

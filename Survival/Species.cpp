@@ -1,4 +1,5 @@
 #include<iostream>
+#include<time.h>
 #include"Species.h"
 #include "Environment.h"
 using namespace std;
@@ -52,7 +53,7 @@ void Species::displayName(){
 	cout << name_ << " ";
 }
 void Species::displayAtt(){
-	cout << lifespan_ << " " << health_ << gender_ << strength_ << speed_ << intelligence_;
+	cout << lifespan_ << " " << health_ << " " << gender_ << " " << strength_ << " " << speed_ << " " << intelligence_<< " ";
 }
 void Species::displayEnvo(){
 	envo_.display();
