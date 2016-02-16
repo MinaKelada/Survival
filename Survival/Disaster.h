@@ -5,8 +5,6 @@ class Disaster{
 	int strength_;
 	int type_;
 public:
-	void affect(){
-
-	}
+	void affect();
 };
 #endif

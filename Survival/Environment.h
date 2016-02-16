@@ -1,6 +1,6 @@
 #ifndef ENVIRONMENT_
 #define ENVIRONMENT_
-#include"Species.h"
+class Species;
 class Environment{
 	int food_;
 	int capacity_;
@@ -8,8 +8,9 @@ class Environment{
 	char typeName_[20];
 public:
 		void setEnv();
-		void giveEnvironment(Species []);
+		void giveEnvironment(Species& spec);
 		void display();
+		Environment& operator=(const Environment&);
 
 };
 #endif

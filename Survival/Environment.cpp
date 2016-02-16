@@ -1,5 +1,7 @@
 #include<iostream>
 #include"Environment.h"
+#include"Species.h"
+using namespace std;
 void Environment::setEnv(){
 	capacity_ = rand() % 1001+100;
 	type_ = rand() % 4;
@@ -23,14 +25,10 @@ void Environment::setEnv(){
 	}
 	
 }
-void Environment::giveEnvironment(Species spec[]){
-	int size = sizeof(spec);
-	int i = 0;
-	while (i < size){
-		spec[i].setEnvo(*this);
-	}
+void Environment::giveEnvironment(Species& spec){
+	spec.setEnvo(*this);
 
 }
 void Environment::display(){
-
+	cout << "In environment: " << typeName_ << endl;
 }

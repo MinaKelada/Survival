@@ -1,5 +1,6 @@
 #ifndef DISEASE_
 #define DISEASE_
+#include"Species.h"
 class Disease{
 	int strength_;
 	int contagious_;

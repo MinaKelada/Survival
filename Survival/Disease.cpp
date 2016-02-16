@@ -7,5 +7,6 @@
 		affects_ = rand() % 3; //0 = health, 1 = strength, 2 = speed
 	}
 	int Disease::infect(Species&){
+		return 0;
 
 	}

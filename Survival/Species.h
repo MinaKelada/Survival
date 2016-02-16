@@ -9,9 +9,10 @@ class Species{
 	int gender_; //0 = male 1 = female
 	int strength_;
 	int speed_;
-	Environment envo;
+	int intelligence_;
+	Environment envo_;
 public:
-		void set();
+		Species();
 		void drastic();
 		void breed(Species&);
 		void mutate();
@@ -23,7 +24,8 @@ public:
 		void heal();
 		void setEnvo(Environment&);
 		void dead();
-
-
+		void displayName();
+		void displayAtt();
+		void displayEnvo();
 };
 #endif
