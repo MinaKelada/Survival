@@ -1,5 +1,5 @@
-#include<time.h>
-#include<stdlib.h>
+#include<ctime>
+#include<cstdlib>
 #include"Life.h"
 int main(void){
 	srand(time(NULL));
