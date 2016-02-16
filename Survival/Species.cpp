@@ -1,5 +1,4 @@
 #include<iostream>
-#include<time.h>
 #include"Species.h"
 #include "Environment.h"
 using namespace std;

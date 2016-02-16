@@ -1,10 +1,8 @@
 #include<iostream>
 #include"Environment.h"
-#include<time.h>
 #include"Species.h"
 using namespace std;
 void Environment::setEnv(){
-	srand(time(NULL));
 	capacity_ = rand() % 1001+100;
 	type_ = rand() % 4;
 	switch(type_){
