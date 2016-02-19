@@ -24,8 +24,11 @@ public:
 		void heal();
 		void setEnvo(Environment&);
 		void dead();
-		void displayName();
-		void displayAtt();
+		char* displayName();
+		void shortDisplayAtt();
+		void longDisplayAtt();
 		void displayEnvo();
+		void setAIName(char a, int seg);
+		void reduceStats(int type, int amount);
 };
 #endif

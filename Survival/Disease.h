@@ -5,9 +5,10 @@ class Disease{
 	int strength_;
 	int contagious_;
 	int affects_; //what attribute will it affect
+	char affectH_[20];
 public:
-		void set();
-		int infect(Species&);
-
+		Disease();
+		Species& infect(Species& C);
+		void display();
 };
 #endif

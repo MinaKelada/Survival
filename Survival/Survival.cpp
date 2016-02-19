@@ -4,6 +4,6 @@
 int main(void){
 	srand(time(NULL));
 	Life Era;
-	Era.start();
+	Era.test();
 	return 0;
 }

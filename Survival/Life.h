@@ -2,6 +2,8 @@
 #define LIFE_
 class Life{
 public:
-	void start();
+	void startNoU();
+	void startU();
+	void test();
 };
 #endif 
