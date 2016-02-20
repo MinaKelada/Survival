@@ -17,10 +17,10 @@ void Life::test(){
 	{
 		en.giveEnvironment(e1[i]);
 		e1[i].setAIName('e', i);
-		e1[i].shortDisplayAtt();
+		e1[i].longDisplayAtt();
 		e1[i].displayEnvo();
 		d.infect(e1[i]);
-		e1[i].shortDisplayAtt();
+		e1[i].longDisplayAtt();
 		i++;
 	}
 	//en.setEnv();

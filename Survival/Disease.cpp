@@ -21,7 +21,7 @@ using namespace std;
 			break;
 		}
 	}
-	Species& Disease::infect(Species& C){
+	void Disease::infect(Species& C){
 		bool infected = 0;
 		int chance = rand() % 101;
 		if (contagious_ > chance){
@@ -32,6 +32,5 @@ using namespace std;
 			cout << "This reduces " << C.displayName() << "'s " << affectH_ << " by " << strength_ << endl;
 			C.reduceStats(affects_,strength_);
 		}
-		
-		return C;
+	
 	}

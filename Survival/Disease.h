@@ -8,7 +8,7 @@ class Disease{
 	char affectH_[20];
 public:
 		Disease();
-		Species& infect(Species& C);
+		void infect(Species& C);
 		void display();
 };
 #endif
