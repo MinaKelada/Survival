@@ -3,8 +3,12 @@
 #include"Species.h"
 class Disaster{
 	int strength_;
-	int type_;
+	int speed_;
+	char typeName_[20];
 public:
-	void affect();
+	Disaster();
+	void reset();
+	void setType(const Species& C);
+	void affect(Species&);
 };
 #endif

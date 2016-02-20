@@ -9,6 +9,8 @@ Species::Species(){
 	strength_ = rand()% 101;
 	speed_ = rand()% 101;
 	intelligence_ = rand() % 21;
+	injured_ = 0;
+	injuredAmount_ = 0;
 }
 void Species::setAIName(char a, int seg){
 	char name[3];
@@ -40,8 +42,36 @@ int Species::feed(){
 void Species::change(){
 	
 }
-void Species::injury(){
-
+void Species::injury(int strength){
+	if (strength <= 10){
+		injured_ = 1;
+		injuredAmount_ = 3;
+	}
+	else if (strength <= 20 && strength >= 10){
+		injured_ = 2;
+		injuredAmount_ = 6;
+	}
+	else if (strength <= 30 && strength >= 20){
+		injured_ = 3;
+		injuredAmount_ = 9;
+	}
+	cout << name_ << " has received an injury that affects their ";
+	switch (rand() % 3){
+	case 0:
+		cout << "strength";
+		reduceStats(1, injuredAmount_);
+		break;
+	case 1:
+		cout << "speed";
+		reduceStats(2, injuredAmount_);
+		break;
+	case 2:
+		cout << "intelligence";
+		reduceStats(3, injuredAmount_);
+		break;
+	}
+	cout << "  by " << injuredAmount_ << " for " << injured_ << " year/s" << endl;
+	
 }
 void Species::heal(){
 
@@ -90,7 +120,7 @@ void Species::reduceStats(int type, int amount){
 	case 3:
 		intelligence_ -= amount;
 		if (intelligence_ <= 0){
-			speed_ = 0;
+			intelligence_ = 0;
 		}
 		break;
 	}
@@ -104,3 +134,19 @@ void Species::dead(){
 	speed_ = 0;
 	intelligence_ = 0;
 }
+int Species::getSpeed(){
+	return speed_;
+}
+void Species::reduceStats(int strength){
+	health_ -= strength;
+	if (health_ <= 0){
+		dead();
+	}
+	else if (rand() % 31 > 15){
+		injury(strength);
+	}
+	
+}
+	int Species::getType()const {
+		return envo_.getType();
+	}

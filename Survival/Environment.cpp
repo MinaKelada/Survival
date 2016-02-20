@@ -38,3 +38,6 @@ Environment& Environment::operator=(const Environment& other){
 	strcpy(typeName_, other.typeName_);
 	return *this;
 }
+int Environment::getType() const{
+	return type_;
+}

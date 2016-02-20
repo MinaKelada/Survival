@@ -8,6 +8,7 @@ class Environment{
 	char typeName_[20];
 public:
 		void setEnv();
+		int getType() const;
 		void giveEnvironment(Species& spec);
 		void display();
 		Environment& operator=(const Environment&);

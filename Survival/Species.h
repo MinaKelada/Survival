@@ -10,6 +10,8 @@ class Species{
 	int strength_;
 	int speed_;
 	int intelligence_;
+	int injured_;
+	int injuredAmount_;
 	Environment envo_;
 public:
 		Species();
@@ -20,7 +22,7 @@ public:
 		int farm();
 		int feed();
 		void change();
-		void injury();
+		void injury(int strength);
 		void heal();
 		void setEnvo(Environment&);
 		void dead();
@@ -30,5 +32,8 @@ public:
 		void displayEnvo();
 		void setAIName(char a, int seg);
 		void reduceStats(int type, int amount);
+		int getSpeed();
+		void reduceStats(int strength);
+		int getType() const;
 };
 #endif
