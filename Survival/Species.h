@@ -15,8 +15,10 @@ class Species{
 	Environment envo_;
 public:
 		Species();
+		Species(Species&);
+		Species(int lifespan, int health_, int strength, int speed, int intelligence);
 		void drastic();
-		void breed(Species&);
+		Species breed(const Species& guy);
 		void mutate();
 		void fight(Species&);
 		int farm();
@@ -35,5 +37,13 @@ public:
 		int getSpeed();
 		void reduceStats(int strength);
 		int getType() const;
-};
+		Species select(Species set [], int size);
+		int getGender();
+		int setPref();
+		Species& operator=(Species&);
+		Species& copy(Species&);
+}; //still attempting to debug breeding functions and all functions related to it. delete [] nextGen in Species.cpp breaks code
+//program only continues for a little while longer if delte is commented out
+//also stops at e2 will breed
+Species* matingSeason(Species set[], int& size);
 #endif
