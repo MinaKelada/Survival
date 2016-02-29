@@ -16,7 +16,6 @@ Species::Species(){
 }
 Species::Species(Species& sam){
 	copy(sam);
-	cout << "enter con" << endl;
 }
 Species::Species(int lifespan, int health, int strength, int speed, int intelligence){
 	lifespan_ = lifespan;
@@ -41,16 +40,16 @@ void Species::setAIName(char a, int seg){
 void Species::drastic(){
 
 }
-Species Species::breed(const Species& guy){
+Species Species::breed(Species& guy){
+	cout << displayName() << " has decided to breed with " << guy.displayName() << endl;
 	int lifespan = (lifespan_ + guy.lifespan_) / 2;
 	int health = (health_ + guy.health_) / 2;
 	int strength = (strength_ + guy.strength_) / 2;
 	int speed = (speed_ + guy.speed_) / 2;
 	int intelligence = (intelligence_ + guy.intelligence_) / 2;
 	Species baby(lifespan, health, strength, speed, intelligence);
-	//should add give environment to this
+	guy.envo_.giveEnvironment(baby);
 	return baby;
-
 }
 void Species::mutate(){
 
@@ -177,7 +176,7 @@ void Species::reduceStats(int strength){
 	int Species::getType()const {
 		return envo_.getType();
 	}
-	Species* matingSeason(Species set [], int& size){
+	Species* matingSeason(Species* set, int& size){
 		int i;
 		int kid = 0;
 		Species* total;
@@ -186,9 +185,9 @@ void Species::reduceStats(int strength){
 		i = 0;
 		while(i<size){ 
 			if (set[i].getGender() == 1){
-				cout << set[i].displayName() << "will breed with "<< endl;
 				nextGen[kid] = set[i].select(set, size);
-				nextGen[kid].setAIName(char(set[i].displayName()[0]+1), kid);  
+				nextGen[kid].setAIName(char(set[size-1].displayName()[0]+1), kid);  
+				cout << set[i].displayName() << " has given birth to: ";
 				nextGen[kid].shortDisplayAtt();
 				kid++;
 				i++;
@@ -197,18 +196,23 @@ void Species::reduceStats(int strength){
 				i++;
 			}
 		}	
+		Species* oldGen = new Species[size];
+		i = 0;
+		while (i < size){
+			oldGen[i] = set[i];
+			i++;
+		}
+		delete[] set;
 		total = new Species[size + kid];
 		i = 0;
 		while (i < size){
-			total[i] = set[i];
-			total[i].shortDisplayAtt();
+			total[i] = oldGen[i];
 			i++;
 		}
 		int next = 0;
 		size += kid; 
 		while (i < (size)){
 			total[i] = nextGen[next]; 
-			total[i].shortDisplayAtt();
 			i++;
 			next++;     
 		}
@@ -219,7 +223,6 @@ void Species::reduceStats(int strength){
 		int i;
 		int pref = setPref();
 		int keeper = -1;
-		cout << "select" << endl;
 		for (i = 0; i < size; i++){
 			if (set[i].getGender() == 0){
 				if (keeper < 0){
@@ -230,18 +233,22 @@ void Species::reduceStats(int strength){
 					if (set[i].health_ > set[keeper].health_){
 						keeper = i;
 					}
+					break;
 				case 1:
 					if (set[i].strength_ > set[keeper].strength_){
 						keeper = i;
 					}
+					break;
 				case 2:
 					if (set[i].speed_ > set[keeper].speed_){
 						keeper = i;
 					}
+					break;
 				case 3:
 					if (set[i].intelligence_ > set[keeper].intelligence_){
 						keeper = i;
 					}
+					break;
 				}
 			}
 		}
@@ -269,10 +276,9 @@ void Species::reduceStats(int strength){
 	}
 	Species& Species::operator=(Species& sam){
 		copy(sam);
-		cout << "entered operator" << endl;
 		return *this;
 	}
-	Species& Species::copy(Species& sam){ //returning reference might be bad
+	Species& Species::copy(Species& sam){ 
 		lifespan_ = sam.lifespan_;
 		health_ = sam.health_;
 		gender_ = sam.gender_;
@@ -282,6 +288,7 @@ void Species::reduceStats(int strength){
 		intelligence_ = sam.intelligence_;
 		injured_ = sam.injured_;
 		injuredAmount_ = sam.injuredAmount_;
+		sam.envo_.giveEnvironment(*this);
 		strcpy(name_, sam.name_);
 		return *this;
 	}

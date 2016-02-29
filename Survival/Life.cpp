@@ -7,12 +7,11 @@
 using namespace std;
 void Life::test(){
 	//testing give environment functions comprehensively
-	Species e1[5];
+	Species* e1 = new Species[5];
 	Environment en;
 	en.setEnv();
 	int i = 0;
-	en.display();
-	Species* total;
+	//en.display();
 	int size = 5;
 
 	while (i < 5)
@@ -20,20 +19,29 @@ void Life::test(){
 		en.giveEnvironment(e1[i]);
 		e1[i].setAIName('e', i);
 		e1[i].shortDisplayAtt();
-		e1[i].displayEnvo();
-		e1[i].shortDisplayAtt();
-		//c.affect(e1[i]);
-		//c.reset();
-		e1[i].shortDisplayAtt();
+	//	e1[i].displayEnvo();
+	//	e1[i].shortDisplayAtt();
+	//	//c.affect(e1[i]);
+	//	//c.reset();
+	//	e1[i].shortDisplayAtt();
 		i++;	
 	}
-	total = matingSeason(e1, size);
+	e1 = matingSeason(e1, size);
+	cout << "end of mating season" << endl;
+
+	/*i = 0;
+	while (i < size){
+		e1[i].shortDisplayAtt(); 
+		i++;
+	}*/
+	e1 = matingSeason(e1, size);
+	cout << "end of mating season" << endl;
 	i = 0;
 	while (i < size){
-		total[i].shortDisplayAtt(); 
+		e1[i].shortDisplayAtt();
 		i++;
 	}
-	delete[] total;
+	delete[] e1;
 	//Species sam;
 	//sam.setAIName('a', 1);
 	//sam.shortDisplayAtt();

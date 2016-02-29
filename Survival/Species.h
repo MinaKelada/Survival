@@ -18,7 +18,7 @@ public:
 		Species(Species&);
 		Species(int lifespan, int health_, int strength, int speed, int intelligence);
 		void drastic();
-		Species breed(const Species& guy);
+		Species breed(Species& guy); 
 		void mutate();
 		void fight(Species&);
 		int farm();
@@ -42,8 +42,6 @@ public:
 		int setPref();
 		Species& operator=(Species&);
 		Species& copy(Species&);
-}; //still attempting to debug breeding functions and all functions related to it. delete [] nextGen in Species.cpp breaks code
-//program only continues for a little while longer if delte is commented out
-//also stops at e2 will breed
+}; //crashes at random, "stack corrupted around baby";
 Species* matingSeason(Species set[], int& size);
 #endif
