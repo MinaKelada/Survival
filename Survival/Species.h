@@ -12,11 +12,15 @@ class Species{
 	int intelligence_;
 	int injured_;
 	int injuredAmount_;
+	char clan_;
 	Environment envo_;
 public:
 		Species();
 		Species(Species&);
-		Species(int lifespan, int health_, int strength, int speed, int intelligence);
+		void setClan(char clan);
+		void randSet();
+		char clanDisplay();
+		Species(int lifespan, int health_, int strength, int speed, int intelligence, int food);
 		void drastic();
 		Species breed(Species& guy); 
 		void mutate();
@@ -42,6 +46,7 @@ public:
 		int setPref();
 		Species& operator=(Species&);
 		Species& copy(Species&);
-}; //crashes at random, "stack corrupted around baby";
+}; //crashes at random, "stack corrupted around baby"
 Species* matingSeason(Species set[], int& size);
+void giveClan(char clan, Species* set, int size);
 #endif

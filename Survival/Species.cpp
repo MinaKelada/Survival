@@ -2,26 +2,43 @@
 #include"Species.h"
 #include "Environment.h"
 using namespace std;
-Species::Species(){
+void Species::randSet(){
 	lifespan_ = rand() % 101;
-	health_ = rand()% 101;
-	gender_ = rand()% 2;
-	food_ = 0;
-	strength_ = rand()% 101;
-	speed_ = rand()% 101;
+	health_ = rand() % 101;
+	gender_ = rand() % 2;
+	food_ = rand()% 101;
+	strength_ = rand() % 101;
+	speed_ = rand() % 101;
 	intelligence_ = rand() % 21;
 	injured_ = 0;
 	injuredAmount_ = 0;
 	strcpy(name_, "");
 }
+Species::Species(){
+	randSet();
+}
+void giveClan(char clan, Species* set, int size){
+	int i;
+	i = 0;
+	while (i < size){
+		set[i].setClan(clan);
+		i++;
+	}
+}
+void Species::setClan(char clan){
+	clan_ = clan;
+}
 Species::Species(Species& sam){
 	copy(sam);
 }
-Species::Species(int lifespan, int health, int strength, int speed, int intelligence){
+char Species::clanDisplay(){
+	return clan_;
+}
+Species::Species(int lifespan, int health, int strength, int speed, int intelligence, int food){
 	lifespan_ = lifespan;
 	health_ = health;
 	gender_ = rand() % 2;
-	food_ = 0;
+	food_ = food;
 	strength_ = strength;
 	speed_ = speed;
 	intelligence_ = intelligence;
@@ -47,8 +64,12 @@ Species Species::breed(Species& guy){
 	int strength = (strength_ + guy.strength_) / 2;
 	int speed = (speed_ + guy.speed_) / 2;
 	int intelligence = (intelligence_ + guy.intelligence_) / 2;
-	Species baby(lifespan, health, strength, speed, intelligence);
+	guy.food_ = guy.food_ / 2;
+	food_ = food_ / 2;
+	int food = food_ + guy.food_;
+	Species baby(lifespan, health, strength, speed, intelligence, food);
 	guy.envo_.giveEnvironment(baby);
+	baby.setClan(clan_);
 	return baby;
 }
 void Species::mutate(){
@@ -109,10 +130,10 @@ char* Species::displayName(){
 	return name_;
 }
 void Species::shortDisplayAtt(){
-	cout << name_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << endl;
+	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << endl;
 }
 void Species::longDisplayAtt(){
-	cout << "Name is: " << name_ << endl;
+	cout << "Name is: " << name_ << " of clan " << clan_ << endl;
 	cout << "Lifespan is: " << lifespan_ << endl;
 	cout << "Health is: " << health_ << endl;
 	cout << "Gender is: " << (gender_ ? "Female": "Male") << endl; //switched sides of gender for this and short
@@ -259,17 +280,17 @@ void Species::reduceStats(int strength){
 		return gender_;
 	}
 	int Species::setPref(){
-		int pref;
-		if (health_ < strength_&& health_ < speed_&& health_ < intelligence_){
+		int pref = 0; //can sometimes go through without being defined. Believe it's due to equal values
+		if (health_ <= strength_&& health_ <= speed_&& health_ <= intelligence_){
 			pref = 0;
 		}
-		else if (strength_ < health_ && strength_ < speed_&& strength_ < intelligence_){
+		else if (strength_ <= health_ && strength_ <= speed_&& strength_ <= intelligence_){
 			pref = 1;
 		}
-		else if (speed_ < health_ && speed_ < strength_ && speed_ < intelligence_){
+		else if (speed_ <= health_ && speed_ <= strength_ && speed_ <= intelligence_){
 			pref = 2;
 		}
-		else if (intelligence_ < health_ && intelligence_ < speed_&& intelligence_ < strength_){
+		else if (intelligence_ <= health_ && intelligence_ <= speed_&& intelligence_ <= strength_){
 			pref = 3;
 		}
 		return pref;
@@ -290,5 +311,6 @@ void Species::reduceStats(int strength){
 		injuredAmount_ = sam.injuredAmount_;
 		sam.envo_.giveEnvironment(*this);
 		strcpy(name_, sam.name_);
+		clan_ = sam.clan_;
 		return *this;
 	}

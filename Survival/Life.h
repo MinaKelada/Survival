@@ -2,8 +2,7 @@
 #define LIFE_
 class Life{
 public:
-	void startNoU();
-	void startU();
-	void test();
+	void noUser();
+	void User();
 };
-#endif 
+#endif
