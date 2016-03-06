@@ -18,7 +18,7 @@ void Tester::genTest(){
 	while (i < 5)
 	{
 		en.giveEnvironment(e1[i]);
-		e1[i].setAIName('e', i);
+		e1[i].setAIName('z', i);
 		e1[i].shortDisplayAtt();
 
 	//	e1[i].displayEnvo();
@@ -63,4 +63,12 @@ void Tester::genTest(){
 	//en.display();
 	//e1[0].displayEnvo();
 	//end testing*/
+}
+void Tester::feedTest(){
+	Species e1;
+	e1.setAIName('i', 1);
+	e1.setClan('u');
+	e1.longDisplayAtt();
+	e1.feed();
+	e1.longDisplayAtt();
 }

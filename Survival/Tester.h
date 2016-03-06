@@ -4,5 +4,6 @@ class Tester{
 public:
 	
 	void genTest();
+	void feedTest();
 };
 #endif 

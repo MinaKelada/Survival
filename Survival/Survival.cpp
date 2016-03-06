@@ -5,6 +5,7 @@
 int main(void){
 	srand(time(NULL));
 	Tester Joe;
-	Joe.genTest();
+	//Joe.genTest();
+	Joe.feedTest();
 	return 0;
 }

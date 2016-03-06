@@ -83,6 +83,19 @@ int Species::farm(){
 
 }
 int Species::feed(){
+	int bmr = strength_ / 2;
+	int damage = 0;
+	cout << name_ << " needs to eat " << bmr << " units of food" << endl;
+	food_ = food_ - bmr;
+	if (food_ <= 0){
+		damage = food_ * -1;
+		cout << name_ << " does not have enough food. Lost " << damage << " health" << endl;
+		food_ = 0;
+		health_ = health_ - damage;
+	}
+	else{
+		cout << name_ << " has " << food_ << " left " << endl;
+	}
 	return 0;
 
 }
@@ -130,7 +143,7 @@ char* Species::displayName(){
 	return name_;
 }
 void Species::shortDisplayAtt(){
-	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << endl;
+	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << food_ << endl;
 }
 void Species::longDisplayAtt(){
 	cout << "Name is: " << name_ << " of clan " << clan_ << endl;
@@ -140,6 +153,7 @@ void Species::longDisplayAtt(){
 	cout << "Strength is: " << strength_ << endl;
 	cout << "Speed is: " << speed_ << endl;
 	cout << "Intelligence is: " << intelligence_ << endl;
+	cout << "Food: " << food_ << endl;
 }
 void Species::displayEnvo(){
 	envo_.display();
@@ -207,7 +221,11 @@ void Species::reduceStats(int strength){
 		while(i<size){ 
 			if (set[i].getGender() == 1){
 				nextGen[kid] = set[i].select(set, size);
-				nextGen[kid].setAIName(char(set[size-1].displayName()[0]+1), kid);  
+				char name = char(set[size - 1].displayName()[0] + 1);
+				if (name = '{'){
+					name = 'A';
+				}
+				nextGen[kid].setAIName(name, kid);  
 				cout << set[i].displayName() << " has given birth to: ";
 				nextGen[kid].shortDisplayAtt();
 				kid++;
