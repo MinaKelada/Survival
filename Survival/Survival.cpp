@@ -6,6 +6,8 @@ int main(void){
 	srand(time(NULL));
 	Tester Joe;
 	//Joe.genTest();
-	Joe.feedTest();
+	//Joe.feedTest();
+	Joe.deadBreed();
+
 	return 0;
 }

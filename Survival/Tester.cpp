@@ -72,3 +72,30 @@ void Tester::feedTest(){
 	e1.feed();
 	e1.longDisplayAtt();
 }
+void Tester::deadBreed(){
+	Species* e1 = new Species[5];
+	Environment en;
+	en.setEnv();
+	giveClan('b', e1, 5);
+	
+
+	int i = 5;
+	int x = 0;
+	while(x < 5){
+		en.giveEnvironment(e1[x]);
+		e1[x].setAIName('i', x);
+		e1[x].setClan('u');
+		x++;
+	}
+	e1[2].dead();
+	e1 = matingSeason(e1, i);
+	//This program now only works using dynamic memory allocation^
+
+	x = 0;
+	while (x < i){
+		e1[x].shortDisplayAtt();
+		x++;
+	}
+	delete [] e1;
+	cout << "end program" << endl;
+}

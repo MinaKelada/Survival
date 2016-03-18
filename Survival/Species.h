@@ -2,7 +2,7 @@
 #define species_
 #include"Environment.h"
 class Species{
-	char name_[20];
+	char name_[30];
 	int lifespan_;
 	int health_;
 	int food_;
@@ -46,7 +46,9 @@ public:
 		int setPref();
 		Species& operator=(Species&);
 		Species& copy(Species&);
+		bool isNotDead();
 }; //crashes at random, "stack corrupted around baby"
+//https://social.msdn.microsoft.com/Forums/vstudio/en-US/14e7318e-6fff-4d68-a823-9cbe7b7bc20a/debugging-runtime-check-failure-2-stack-around-the-variable-loggerthread-was-corrupted?forum=vcgeneral
 Species* matingSeason(Species set[], int& size);
 void giveClan(char clan, Species* set, int size);
 #endif

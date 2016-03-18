@@ -143,7 +143,7 @@ char* Species::displayName(){
 	return name_;
 }
 void Species::shortDisplayAtt(){
-	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << food_ << endl;
+	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << " " << food_ << endl;
 }
 void Species::longDisplayAtt(){
 	cout << "Name is: " << name_ << " of clan " << clan_ << endl;
@@ -219,10 +219,10 @@ void Species::reduceStats(int strength){
 		nextGen = new Species[size];
 		i = 0;
 		while(i<size){ 
-			if (set[i].getGender() == 1){
+			if (set[i].getGender() == 1 && set[i].isNotDead()){
 				nextGen[kid] = set[i].select(set, size);
 				char name = char(set[size - 1].displayName()[0] + 1);
-				if (name = '{'){
+				if (name == '{'){
 					name = 'A';
 				}
 				nextGen[kid].setAIName(name, kid);  
@@ -257,13 +257,15 @@ void Species::reduceStats(int strength){
 		}
 		delete [] nextGen;
 		return total;
+		//this code is giving back the pointer that it just destroyed so the pointer that was given to it has to equal this function
+		//or it will return a debug error because you're deleting something which no longer exists
 	}
 	Species Species::select(Species set[], int size){
 		int i;
 		int pref = setPref();
 		int keeper = -1;
 		for (i = 0; i < size; i++){
-			if (set[i].getGender() == 0){
+			if (set[i].getGender() == 0 && set[i].isNotDead()){
 				if (keeper < 0){
 						keeper = i;
 					}
@@ -331,4 +333,7 @@ void Species::reduceStats(int strength){
 		strcpy(name_, sam.name_);
 		clan_ = sam.clan_;
 		return *this;
+	}
+	bool Species::isNotDead(){
+		return lifespan_ != 0;
 	}
