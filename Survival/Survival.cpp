@@ -7,7 +7,8 @@ int main(void){
 	Tester Joe;
 	//Joe.genTest();
 	//Joe.feedTest();
-	Joe.deadBreed();
+//	Joe.deadBreed();
+	Joe.fightTest();
 
 	return 0;
 }

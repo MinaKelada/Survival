@@ -75,7 +75,36 @@ Species* Species::breed(Species& guy){
 void Species::mutate(){
 
 }
-void Species::fight(Species&){
+void Species::fight(Species& other){
+	cout << name_ << " has gotten into a fight with " << other.name_ << endl;
+	if (other.strength_ < strength_){
+		if (other.speed_ < speed_){
+			cout << other.name_ << " lost " << strength_ << " health" << endl;
+			other.reduceStats(0, strength_);
+
+		}
+		else{
+			cout << other.name_ << " has run away" << endl;
+		}
+	}
+	else if (strength_ < other.strength_){
+		if (speed_ < other.speed_){
+			
+			cout << name_ << " lost " << other.strength_ << " health" << endl;
+			reduceStats(0, other.strength_);
+		}
+		else{
+			cout << name_ << " has run away" << endl;
+		}
+	}
+	else{
+		
+		cout << name_ << " and " << other.name_ << " have traded blows" << endl;
+		cout << name_ << ": Health:" << health_ << endl;
+		cout << other.name_ << ": Health:" << other.health_ << endl;
+		reduceStats(0, other.strength_);
+		other.reduceStats(0, strength_);
+	}
 
 }
 int Species::farm(){

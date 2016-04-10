@@ -100,3 +100,17 @@ void Tester::deadBreed(){
 	delete [] e1;
 	cout << "end program" << endl;
 }
+void Tester::fightTest(){
+	Species one;
+	Species two;
+	one.setAIName('x', 0);
+	one.setClan('x');
+	two.setAIName('z', 0);
+	two.setClan('z');
+	one.longDisplayAtt();
+	two.longDisplayAtt();
+	one.fight(two);
+	one.longDisplayAtt();
+	two.longDisplayAtt();
+
+}
