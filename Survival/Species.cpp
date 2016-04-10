@@ -57,7 +57,7 @@ void Species::setAIName(char a, int seg){
 void Species::drastic(){
 
 }
-Species Species::breed(Species& guy){
+Species* Species::breed(Species& guy){
 	cout << displayName() << " has decided to breed with " << guy.displayName() << endl;
 	int lifespan = (lifespan_ + guy.lifespan_) / 2;
 	int health = (health_ + guy.health_) / 2;
@@ -67,9 +67,9 @@ Species Species::breed(Species& guy){
 	guy.food_ = guy.food_ / 2;
 	food_ = food_ / 2;
 	int food = food_ + guy.food_;
-	Species baby(lifespan, health, strength, speed, intelligence, food);
-	guy.envo_.giveEnvironment(baby);
-	baby.setClan(clan_);
+	Species* baby = new Species(lifespan, health, strength, speed, intelligence, food);
+	guy.envo_.giveEnvironment(*baby);
+	baby->setClan(clan_);
 	return baby;
 }
 void Species::mutate(){
@@ -220,7 +220,10 @@ void Species::reduceStats(int strength){
 		i = 0;
 		while(i<size){ 
 			if (set[i].getGender() == 1 && set[i].isNotDead()){
-				nextGen[kid] = set[i].select(set, size);
+				Species* baby;
+				baby = set[i].select(set, size);
+				nextGen[kid] = *baby;
+				delete baby;
 				char name = char(set[size - 1].displayName()[0] + 1);
 				if (name == '{'){
 					name = 'A';
@@ -255,16 +258,17 @@ void Species::reduceStats(int strength){
 			i++;
 			next++;     
 		}
+		delete [] oldGen; 
 		delete [] nextGen;
 		return total;
 		//this code is giving back the pointer that it just destroyed so the pointer that was given to it has to equal this function
 		//or it will return a debug error because you're deleting something which no longer exists
 	}
-	Species Species::select(Species set[], int size){
+	Species* Species::select(Species set[], int size){
 		int i;
 		int pref = setPref();
 		int keeper = -1;
-		for (i = 0; i < size; i++){
+		for (i = 0; i < size; i++){ //program seems unable to handle all females
 			if (set[i].getGender() == 0 && set[i].isNotDead()){
 				if (keeper < 0){
 						keeper = i;
@@ -293,7 +297,8 @@ void Species::reduceStats(int strength){
 				}
 			}
 		}
-		Species baby = breed(set[keeper]);
+
+		Species* baby = breed(set[keeper]);
 		return baby;
 	}
 	int Species::getGender(){
@@ -337,3 +342,15 @@ void Species::reduceStats(int strength){
 	bool Species::isNotDead(){
 		return lifespan_ != 0;
 	}
+	bool matingMinimum(Species set[], int size){
+		int i = 0;
+		bool male = false;
+		while (i < size){
+			if (set[i].getGender() == 0 && set[i].isNotDead()){
+				male = true;
+			}
+			i++;
+		}
+		return male;
+	}
+	

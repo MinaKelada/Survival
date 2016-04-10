@@ -88,8 +88,9 @@ void Tester::deadBreed(){
 		x++;
 	}
 	e1[2].dead();
-	e1 = matingSeason(e1, i);
-	//This program now only works using dynamic memory allocation^
+	if (matingMinimum(e1, 5)){
+		e1 = matingSeason(e1, i);
+	}
 
 	x = 0;
 	while (x < i){

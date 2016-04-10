@@ -22,7 +22,7 @@ public:
 		char clanDisplay();
 		Species(int lifespan, int health_, int strength, int speed, int intelligence, int food);
 		void drastic();
-		Species breed(Species& guy); 
+		Species* breed(Species& guy); 
 		void mutate();
 		void fight(Species&);
 		int farm();
@@ -41,14 +41,14 @@ public:
 		int getSpeed();
 		void reduceStats(int strength);
 		int getType() const;
-		Species select(Species set [], int size);
+		Species* select(Species set [], int size);
 		int getGender();
 		int setPref();
 		Species& operator=(Species&);
 		Species& copy(Species&);
 		bool isNotDead();
-}; //crashes at random, "stack corrupted around baby"
-//https://social.msdn.microsoft.com/Forums/vstudio/en-US/14e7318e-6fff-4d68-a823-9cbe7b7bc20a/debugging-runtime-check-failure-2-stack-around-the-variable-loggerthread-was-corrupted?forum=vcgeneral
+}; 	
+bool matingMinimum(Species set[], int size);
 Species* matingSeason(Species set[], int& size);
 void giveClan(char clan, Species* set, int size);
 #endif
