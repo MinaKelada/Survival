@@ -8,7 +8,8 @@ int main(void){
 	//Joe.genTest();
 	//Joe.feedTest();
 //	Joe.deadBreed();
-	Joe.fightTest();
+	//Joe.fightTest();
+	Joe.FightNightTest();
 
 	return 0;
 }

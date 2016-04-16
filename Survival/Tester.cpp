@@ -112,5 +112,28 @@ void Tester::fightTest(){
 	one.fight(two);
 	one.longDisplayAtt();
 	two.longDisplayAtt();
-
+}
+void Tester::FightNightTest(){
+	Species* e1 = new Species[7];
+	int size1 = 7;
+	Species* e2 = new Species[7];
+	int size2 = 7;
+	Species* e3 = new Species[7];
+	int size3 = 7;
+	Species* e4 = new Species[7];
+	int size4 = 7;
+	int i;
+	i = 0;
+	while (i < 7){
+		e1[i].setAIName('k', i);
+		e1[i].setClan('z');
+		e2[i].setAIName('a', i);
+		e2[i].setClan('v');
+		e3[i].setAIName('c', i);
+		e3[i].setClan('s');
+		e4[i].setAIName('u', i);
+		e4[i].setClan('n');
+		i++;
+	}
+	FightNight4(e1, size1, e2, size2, e3, size3, e4, size4);
 }

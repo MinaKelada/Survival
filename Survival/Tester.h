@@ -7,5 +7,6 @@ public:
 	void feedTest();
 	void deadBreed();
 	void fightTest();
+	void FightNightTest();
 };
 #endif 

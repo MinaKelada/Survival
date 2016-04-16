@@ -12,6 +12,7 @@ void Species::randSet(){
 	intelligence_ = rand() % 21;
 	injured_ = 0;
 	injuredAmount_ = 0;
+	injuredType_ = 0;
 	strcpy(name_, "");
 }
 Species::Species(){
@@ -108,6 +109,9 @@ void Species::fight(Species& other){
 
 }
 int Species::farm(){
+	cout << name_ << " has decided to farm. ";
+	food_ = food_ + rand() % 50;
+	cout << "They now have " << food_ << " pieces of food" << endl;
 	return 0;
 
 }
@@ -126,10 +130,6 @@ int Species::feed(){
 		cout << name_ << " has " << food_ << " left " << endl;
 	}
 	return 0;
-
-}
-void Species::change(){
-	
 }
 void Species::injury(int strength){
 	if (strength <= 10){
@@ -145,7 +145,8 @@ void Species::injury(int strength){
 		injuredAmount_ = 9;
 	}
 	cout << name_ << " has received an injury that affects their ";
-	switch (rand() % 3){
+	injuredType_ = rand() % 3;
+	switch (injuredType_){
 	case 0:
 		cout << "strength";
 		reduceStats(1, injuredAmount_);
@@ -297,7 +298,7 @@ void Species::reduceStats(int strength){
 		int i;
 		int pref = setPref();
 		int keeper = -1;
-		for (i = 0; i < size; i++){ //program seems unable to handle all females
+		for (i = 0; i < size; i++){ 
 			if (set[i].getGender() == 0 && set[i].isNotDead()){
 				if (keeper < 0){
 						keeper = i;
@@ -363,6 +364,7 @@ void Species::reduceStats(int strength){
 		intelligence_ = sam.intelligence_;
 		injured_ = sam.injured_;
 		injuredAmount_ = sam.injuredAmount_;
+		injuredType_ = sam.injuredType_;
 		sam.envo_.giveEnvironment(*this);
 		strcpy(name_, sam.name_);
 		clan_ = sam.clan_;
@@ -382,4 +384,76 @@ void Species::reduceStats(int strength){
 		}
 		return male;
 	}
-	
+	void FightNight4(Species set1[], int size1, Species set2[], int size2, Species set3[], int size3, Species set4[], int size4){
+		Species* contestant1;
+		Species* contestant2;
+		int contSize1;
+		int contSize2;
+		int select1 = 1 + rand() % 4;
+		int select2 = 1 + rand() % 4;
+		if (select1 == select2){
+			select2++;
+			if (select2 > 4){
+				select2 = 3;
+			}
+		}
+		switch (select1){
+		case 1:
+			contestant1 = set1;
+			contSize1 = size1;
+			break;
+		case 2:
+			contestant1 = set2;
+			contSize1 = size2;
+			break;
+		case 3:
+			contestant1 = set3;
+			contSize1 = size3;
+			break;
+		case 4:
+			contestant1 = set4;
+			contSize1 = size4;
+			break;
+		default:
+			cout << "No contestants selected in FightNight" << endl;
+		}
+		switch (select2){
+		case 1:
+			contestant2 = set1;
+			contSize2 = size1;
+			break;
+		case 2:
+			contestant2 = set2;
+			contSize2 = size2;
+			break;
+		case 3:
+			contestant2 = set3;
+			contSize2 = size3;
+			break;
+		case 4:
+			contestant2 = set4;
+			contSize2 = size4;
+			break;
+		default:
+			cout << "No contestants selected in FightNight" << endl;
+		}
+		int i;
+		i = 0;
+		while (i < contSize1 && i < contSize2){
+			if (contestant1[i].isNotDead()){
+				if (contestant2[i].isNotDead()){
+					contestant1[i].fight(contestant2[i]);
+				}
+			}
+			i++;
+		}
+	}
+	void Species::gather(){
+		if (intelligence_ > 100){
+			farm();
+		}
+		else{
+			food_ = food_ + rand() % 20;
+			cout << name_ << " has gathered food, they now have " << food_ << " pieces of food" << endl;
+		}
+	}

@@ -12,6 +12,7 @@ class Species{
 	int intelligence_;
 	int injured_;
 	int injuredAmount_;
+	int injuredType_;
 	char clan_;
 	Environment envo_;
 public:
@@ -27,7 +28,6 @@ public:
 		void fight(Species&);
 		int farm();
 		int feed();
-		void change();
 		void injury(int strength);
 		void heal();
 		void setEnvo(Environment&);
@@ -47,8 +47,10 @@ public:
 		Species& operator=(Species&);
 		Species& copy(Species&);
 		bool isNotDead();
+		void gather();
 }; 	
 bool matingMinimum(Species set[], int size);
 Species* matingSeason(Species set[], int& size);
 void giveClan(char clan, Species* set, int size);
+void FightNight4(Species set1[], int size1, Species set2[], int size2, Species set3[], int size3, Species set4[], int size4);
 #endif
