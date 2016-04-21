@@ -2,6 +2,9 @@
 #include"Environment.h"
 #include"Species.h"
 using namespace std;
+Environment::Environment(){
+	setEnv();
+}
 void Environment::setEnv(){
 	capacity_ = rand() % 1001+100;
 	type_ = rand() % 4;

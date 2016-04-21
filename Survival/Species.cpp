@@ -49,10 +49,36 @@ Species::Species(int lifespan, int health, int strength, int speed, int intellig
 	
 }
 void Species::setAIName(char a, int seg){
-	char name[3];
+	char name[5];
 	name[0] = a;
-	name[1] = char(seg+48);
-	name[2] = 0;
+	if (seg < 10){
+		name[1] = char(seg + 48);
+		name[2] = 0;
+	}
+	else if (seg >= 10 && seg < 100){
+		int frac1;
+		int frac2;
+		frac1 = seg % 10;
+		seg /= 10;
+		frac2 = seg % 10;
+		name[1] = char(frac2+48);
+		name[2] = char(frac1+48);
+		name[3] = 0;
+	}
+	else if (seg >= 100){
+		int frac1;
+		int frac2;
+		int frac3;
+		frac1 = seg % 10;
+		seg /= 10;
+		frac2 = seg % 10;
+		seg /= 10;
+		frac3 = seg % 10;
+		name[1] = char(frac3 + 48);
+		name[2] = char(frac2 + 48);
+		name[3] = char(frac1 + 48);
+		name[4] = 0;
+	}
 	strcpy(name_, name);
 }
 void Species::drastic(){
