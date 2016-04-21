@@ -136,4 +136,12 @@ void Tester::FightNightTest(){
 		i++;
 	}
 	FightNight4(e1, size1, e2, size2, e3, size3, e4, size4);
+	i = 0;
+	while (i < 7){
+		e1[i].heal();
+		e2[i].heal();
+		e3[i].heal();
+		e4[i].heal();
+		i++;
+	}
 }

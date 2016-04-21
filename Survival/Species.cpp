@@ -82,7 +82,7 @@ void Species::fight(Species& other){
 		if (other.speed_ < speed_){
 			cout << other.name_ << " lost " << strength_ << " health" << endl;
 			other.reduceStats(0, strength_);
-
+			other.injury(strength_);
 		}
 		else{
 			cout << other.name_ << " has run away" << endl;
@@ -93,6 +93,7 @@ void Species::fight(Species& other){
 			
 			cout << name_ << " lost " << other.strength_ << " health" << endl;
 			reduceStats(0, other.strength_);
+			injury(other.strength_);
 		}
 		else{
 			cout << name_ << " has run away" << endl;
@@ -104,7 +105,9 @@ void Species::fight(Species& other){
 		cout << name_ << ": Health:" << health_ << endl;
 		cout << other.name_ << ": Health:" << other.health_ << endl;
 		reduceStats(0, other.strength_);
+		injury(other.strength_);
 		other.reduceStats(0, strength_);
+		other.injury(strength_);
 	}
 
 }
@@ -132,38 +135,71 @@ int Species::feed(){
 	return 0;
 }
 void Species::injury(int strength){
-	if (strength <= 10){
-		injured_ = 1;
-		injuredAmount_ = 3;
+	if (isNotDead()){
+		if (strength <= 10){
+			injured_ = 1;
+			injuredAmount_ = 3;
+		}
+		else if (strength <= 20 && strength >= 10){
+			injured_ = 2;
+			injuredAmount_ = 6;
+		}
+		else if (strength <= 30 && strength >= 20){
+			injured_ = 3;
+			injuredAmount_ = 9;
+		}
+		if (injured_ > 0){
+			cout << name_ << " has received an injury that affects their ";
+			injuredType_ = 1 + rand() % 3; //recently changed, keep an eye on
+			switch (injuredType_){
+			case 1:
+				cout << "strength";
+				reduceStats(1, injuredAmount_);
+				break;
+			case 2:
+				cout << "speed";
+				reduceStats(2, injuredAmount_);
+				break;
+			case 3:
+				cout << "intelligence";
+				reduceStats(3, injuredAmount_);
+				break;
+			}
+			cout << " by " << injuredAmount_ << " for " << injured_ << " year/s" << endl;
+		}
 	}
-	else if (strength <= 20 && strength >= 10){
-		injured_ = 2;
-		injuredAmount_ = 6;
-	}
-	else if (strength <= 30 && strength >= 20){
-		injured_ = 3;
-		injuredAmount_ = 9;
-	}
-	cout << name_ << " has received an injury that affects their ";
-	injuredType_ = rand() % 3;
-	switch (injuredType_){
-	case 0:
-		cout << "strength";
-		reduceStats(1, injuredAmount_);
-		break;
-	case 1:
-		cout << "speed";
-		reduceStats(2, injuredAmount_);
-		break;
-	case 2:
-		cout << "intelligence";
-		reduceStats(3, injuredAmount_);
-		break;
-	}
-	cout << "  by " << injuredAmount_ << " for " << injured_ << " year/s" << endl;
 	
 }
+void Species::removeInjury(){
+	cout << name_ << "'s injury has been removed." << endl;
+	switch (injuredType_){
+	case 1:
+		increaseStats(1, injuredAmount_);
+		cout << name_ << "'s strength is now " << strength_ << endl;
+		break;
+	case 2:
+		increaseStats(2, injuredAmount_);
+		cout << name_ << "'s speed is now " << speed_ << endl;
+		break;
+	case 3:
+		increaseStats(3, injuredAmount_);
+		cout << name_ << "'s intelligence is now " << intelligence_ << endl;
+		break;
+	}
+	injuredType_ = 0;
+	injuredAmount_ = 0;
+}
 void Species::heal(){
+	if (isNotDead()){
+		if (injured_ > 0){
+			injured_--;
+			if (injured_ == 0){
+				removeInjury();
+			}
+		}
+		increaseStats(0, 10);
+		cout << name_ << " has healed! Their health is now " << health_ << endl;
+	}
 
 }
 void Species::setEnvo(Environment& env){
@@ -187,6 +223,22 @@ void Species::longDisplayAtt(){
 }
 void Species::displayEnvo(){
 	envo_.display();
+}
+void Species::increaseStats(int type, int amount){
+	switch (type){
+	case 0:
+		health_ += amount;
+		break;
+	case 1:
+		strength_ += amount;
+		break;
+	case 2:
+		speed_ += amount;
+		break;
+	case 3:
+		intelligence_ += amount;
+		break;
+	}
 }
 void Species::reduceStats(int type, int amount){
 	switch (type){

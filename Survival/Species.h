@@ -48,6 +48,8 @@ public:
 		Species& copy(Species&);
 		bool isNotDead();
 		void gather();
+		void removeInjury();
+		void increaseStats(int type, int amount);
 }; 	
 bool matingMinimum(Species set[], int size);
 Species* matingSeason(Species set[], int& size);

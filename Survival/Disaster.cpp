@@ -10,7 +10,8 @@ void Disaster::affect(Species& C){
 	if (C.getSpeed() < speed_){
 		cout << C.displayName() << " was caught in " << typeName_ << endl;
 		cout << "This reduced " << C.displayName() << "'s health by " << strength_ << endl;
-		C.reduceStats(strength_);
+		C.reduceStats(0, strength_);
+		C.injury(strength_);
 	}
 }
 void Disaster::setType(const Species& C){
