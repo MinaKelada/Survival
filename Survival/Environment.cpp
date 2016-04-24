@@ -33,7 +33,7 @@ void Environment::giveEnvironment(Species& spec){
 
 }
 void Environment::display(){
-	cout << "In environment: " << typeName_ << endl;
+	cout << "in environment: " << typeName_ << endl;
 }
 Environment& Environment::operator=(const Environment& other){
 	food_ = other.food_;

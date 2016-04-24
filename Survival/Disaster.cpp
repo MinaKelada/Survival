@@ -6,12 +6,14 @@ Disaster::Disaster(){
 	reset();
 }
 void Disaster::affect(Species& C){
-	setType(C);
-	if (C.getSpeed() < speed_){
-		cout << C.displayName() << " was caught in " << typeName_ << endl;
-		cout << "This reduced " << C.displayName() << "'s health by " << strength_ << endl;
-		C.reduceStats(0, strength_);
-		C.injury(strength_);
+	if (C.isNotDead()){
+		setType(C);
+		if (C.getSpeed() < speed_){
+			cout << C.displayName() << " was caught in " << typeName_ << endl;
+			cout << "This reduced " << C.displayName() << "'s health by " << strength_ << endl;
+			C.reduceStats(0, strength_);
+			C.injury(strength_);
+		}
 	}
 }
 void Disaster::setType(const Species& C){

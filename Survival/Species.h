@@ -1,6 +1,11 @@
 #ifndef species_
 #define species_
+#include<iostream>
 #include"Environment.h"
+#include"Disease.h"
+#include"Disaster.h"
+class Disaster;
+class Disease;
 class Species{
 	char name_[30];
 	int lifespan_;
@@ -33,7 +38,7 @@ public:
 		void setEnvo(Environment&);
 		void dead();
 		char* displayName();
-		void shortDisplayAtt();
+		std::ostream& shortDisplayAtt(std::ostream& ost);
 		void longDisplayAtt();
 		void displayEnvo();
 		void setAIName(char a, int seg);
@@ -55,4 +60,8 @@ bool matingMinimum(Species set[], int size);
 Species* matingSeason(Species set[], int& size);
 void giveClan(char clan, Species* set, int size);
 void FightNight4(Species set1[], int size1, Species set2[], int size2, Species set3[], int size3, Species set4[], int size4);
+bool TotalDead(Species* spec, int specSize);
+void fluSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disease& dis);
+void tornadoSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disaster& dis);
+std::ostream& operator<<(std::ostream& ost, Species& set);
 #endif

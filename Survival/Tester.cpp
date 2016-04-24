@@ -19,7 +19,7 @@ void Tester::genTest(){
 	{
 		en.giveEnvironment(e1[i]);
 		e1[i].setAIName('z', i);
-		e1[i].shortDisplayAtt();
+		cout << e1[i];
 
 	//	e1[i].displayEnvo();
 	//	e1[i].shortDisplayAtt();
@@ -40,7 +40,7 @@ void Tester::genTest(){
 	cout << "end of mating season" << endl;
 	i = 0;
 	while (i < size){
-		e1[i].shortDisplayAtt();
+		cout << e1[i];
 		i++;
 	}
 	delete[] e1;
@@ -94,7 +94,7 @@ void Tester::deadBreed(){
 
 	x = 0;
 	while (x < i){
-		e1[x].shortDisplayAtt();
+		cout << e1[x];
 		x++;
 	}
 	delete [] e1;

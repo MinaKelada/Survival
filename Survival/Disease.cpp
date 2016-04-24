@@ -25,15 +25,17 @@ using namespace std;
 			}
 		}
 	void Disease::infect(Species& C){
-		bool infected = 0;
-		int chance = rand() % 101;
-		if (contagious_ > chance){
-			infected = 1;
-		}
-		if (infected){
-			cout << C.displayName() << " " << "has been infected" << endl;
-			cout << "This reduces " << C.displayName() << "'s " << affectH_ << " by " << strength_ << endl;
-			C.reduceStats(affects_,strength_);
+		if (C.isNotDead()){
+			bool infected = 0;
+			int chance = rand() % 101;
+			if (contagious_ > chance){
+				infected = 1;
+			}
+			if (infected){
+				cout << C.displayName() << " " << "has been infected" << endl;
+				cout << "This reduces " << C.displayName() << "'s " << affectH_ << " by " << strength_ << endl;
+				C.reduceStats(affects_, strength_);
+			}
 		}
 	
 	}

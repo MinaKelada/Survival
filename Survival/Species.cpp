@@ -234,8 +234,12 @@ void Species::setEnvo(Environment& env){
 char* Species::displayName(){
 	return name_;
 }
-void Species::shortDisplayAtt(){
-	cout << name_ << " of clan " << clan_ << " " << lifespan_ << " " << health_ << " " << (gender_ ? "Female" : "Male") << " " << strength_ << " " << speed_ << " " << intelligence_ << " " << food_ << endl;
+ostream& Species::shortDisplayAtt(ostream& ost){
+	ost << name_ << " of clan " << clan_ << " LifeSpan: " << lifespan_ << " Health: " << health_ << " " << (gender_ ? "Female" : "Male") << " Strength: " << strength_ << " Speed:" << speed_ << " Intelligence: " << intelligence_ << " Food: " << food_ << " ";
+	return ost;
+}
+ostream& operator<<(ostream& ost, Species& set){
+	return set.shortDisplayAtt(ost);
 }
 void Species::longDisplayAtt(){
 	cout << "Name is: " << name_ << " of clan " << clan_ << endl;
@@ -338,7 +342,7 @@ void Species::reduceStats(int strength){
 				}
 				nextGen[kid].setAIName(name, kid);  
 				cout << set[i].displayName() << " has given birth to: ";
-				nextGen[kid].shortDisplayAtt();
+				cout << nextGen[kid] << endl;
 				kid++;
 				i++;
 			}
@@ -517,13 +521,15 @@ void Species::reduceStats(int strength){
 		}
 		int i;
 		i = 0;
-		while (i < contSize1 && i < contSize2){
-			if (contestant1[i].isNotDead()){
-				if (contestant2[i].isNotDead()){
-					contestant1[i].fight(contestant2[i]);
+		if (!TotalDead(contestant1, contSize1) && !TotalDead(contestant2, contSize2)){
+			while (i < contSize1 && i < contSize2){
+				if (contestant1[i].isNotDead()){
+					if (contestant2[i].isNotDead()){
+						contestant1[i].fight(contestant2[i]);
+					}
 				}
+				i++;
 			}
-			i++;
 		}
 	}
 	void Species::gather(){
@@ -534,4 +540,72 @@ void Species::reduceStats(int strength){
 			food_ = food_ + rand() % 20;
 			cout << name_ << " has gathered food, they now have " << food_ << " pieces of food" << endl;
 		}
+	}
+	bool TotalDead(Species* spec, int specSize){
+		int i;
+		bool dead = true;
+		for (i = 0; i < specSize; i++){
+			if (spec[i].isNotDead()){
+				dead = false;
+			}
+		}
+		return dead;
+	}
+	void fluSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disease& dis){
+		int select = 1 + rand() % 4;
+		Species* unlucky;
+		int uSize;
+		switch (select){
+		case 1:
+			unlucky = a1;
+			uSize = a1Size;
+			break;
+		case 2:
+			unlucky = a2;
+			uSize = a2Size;
+			break; 
+		case 3:
+				unlucky = a3;
+				uSize = a3Size;
+				break;
+		case 4:
+			unlucky = a4;
+			uSize = a4Size;
+			break;
+		default:
+			cout << "No one selected in disease" << endl;
+		}
+		int i;
+		for (i = 0; i < uSize; i++){
+			dis.infect(unlucky[i]);
+		}
+	}
+void tornadoSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disaster& dis){
+	int select = 1 + rand() % 4;
+	Species* unlucky;
+	int uSize;
+	switch (select){
+	case 1:
+		unlucky = a1;
+		uSize = a1Size;
+		break;
+	case 2:
+		unlucky = a2;
+		uSize = a2Size;
+		break;
+	case 3:
+		unlucky = a3;
+		uSize = a3Size;
+		break;
+	case 4:
+		unlucky = a4;
+		uSize = a4Size;
+		break;
+	default:
+		cout << "No one selected in Disaster" << endl;
+	}
+	int i;
+	for (i = 0; i < uSize; i++){
+		dis.affect(unlucky[i]);
+	}
 	}
