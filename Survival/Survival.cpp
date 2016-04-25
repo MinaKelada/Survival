@@ -5,6 +5,5 @@ int main(void){
 	srand(time(NULL));
 	Life life;
 	life.noUser();
-
 	return 0;
 }

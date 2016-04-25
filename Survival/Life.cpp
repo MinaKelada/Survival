@@ -14,13 +14,13 @@ void Life::noUser(){
 	Environment d;
 	Disaster disaster;
 	Disease disease;
-	int a1Size = rand() % 20;
+	int a1Size = 1 + rand() % 10;
 	Species* a1 = new Species[a1Size];
-	int a2Size = rand() % 20;
+	int a2Size = 1 + rand() % 10;
 	Species* a2 = new Species[a2Size];
-	int a3Size = rand() % 20;
+	int a3Size = 1 +rand() % 10;
 	Species* a3 = new Species[a3Size];
-	int a4Size = rand() % 20;
+	int a4Size = 1 + rand() % 10;
 	Species* a4 = new Species[a4Size];
 	for (i = 0; i < a1Size; i++){
 		a1[i].setAIName('a', i);
@@ -51,9 +51,13 @@ void Life::noUser(){
 		cout << a4[i];
 		a4[i].displayEnvo();
 		}
-	while (!TotalDead(a1, a1Size) && !TotalDead(a2, a2Size) && !TotalDead(a3, a3Size) && !TotalDead(a4, a4Size)){
+	while (!TotalDead(a1, a1Size) && !TotalDead(a2, a2Size) && !TotalDead(a3, a3Size) && !TotalDead(a4, a4Size) && year < 10){
 		year++;
 		cout << "Year: " << year << endl;
+		lunch(a1, a1Size);
+		lunch(a2, a2Size);
+		lunch(a3, a3Size);
+		lunch(a4, a4Size);
 		if (matingMinimum(a1, a1Size)){
 			a1 = matingSeason(a1, a1Size);
 		}
@@ -72,6 +76,26 @@ void Life::noUser(){
 		disease.reset();
 		disaster.reset();
 	}
+	if (TotalDead(a1, a1Size)){
+		cout << "First species (a1, clan a) is extinct" << endl;
+	}
+	if (TotalDead(a2, a2Size)){
+		cout << "Second species (a2, clan d) is extinct" << endl;
+	}
+	if (TotalDead(a3, a3Size)){
+		cout << "Third species (a3, clan h) is extinct" << endl;
+	}
+	if (TotalDead(a4, a4Size)){
+		cout << "Fourth species (a4, clan k) is extinct" << endl;
+	}
+	if (year >= 10){
+		cout << "Simulation lasted longer than 10 years" << endl;
+	}
+	delete[] a1;
+	delete[] a2;
+	delete[] a3;
+	delete[] a4;
+	cout << "End of Simulation" << endl;
 }
 void Life::User(){
 

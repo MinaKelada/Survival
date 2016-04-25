@@ -154,6 +154,9 @@ int Species::feed(){
 		cout << name_ << " does not have enough food. Lost " << damage << " health" << endl;
 		food_ = 0;
 		health_ = health_ - damage;
+		if (health_ <= 0){
+			dead();
+		}
 	}
 	else{
 		cout << name_ << " has " << food_ << " left " << endl;
@@ -605,7 +608,31 @@ void tornadoSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3
 		cout << "No one selected in Disaster" << endl;
 	}
 	int i;
-	for (i = 0; i < uSize; i++){
-		dis.affect(unlucky[i]);
+		for (i = 0; i < uSize; i++){
+			dis.affect(unlucky[i]);
+		}
 	}
+void lunch(Species* set, int size){
+	int i;
+	for (i = 0; i < size; i++){
+		if (set[i].isNotDead()){
+			set[i].age();
+			if (set[i].isNotDead()){
+				set[i].gather();
+				set[i].feed();
+			}
+			if (set[i].isNotDead()){
+				cout << set[i];
+			}
+		}
 	}
+}
+void Species::age(){
+	if (isNotDead()){
+		lifespan_ -= 1;
+		if (lifespan_ <= 0){
+			cout << name_ << " died of old age." << endl;
+			dead();
+		}
+	}
+}
