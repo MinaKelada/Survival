@@ -3,7 +3,7 @@
 #include"Species.h"
 class Disaster{
 	int strength_;
-	int speed_;
+	int speed_; //speed used to see if species can outrun disaster
 	char typeName_[20];
 public:
 	Disaster();

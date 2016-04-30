@@ -29,7 +29,6 @@ public:
 		Species(int lifespan, int health_, int strength, int speed, int intelligence, int food);
 		void drastic();
 		Species* breed(Species& guy); 
-		void mutate();
 		void fight(Species&);
 		int farm();
 		int feed();
@@ -65,5 +64,6 @@ bool TotalDead(Species* spec, int specSize);
 void fluSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disease& dis);
 void tornadoSeason(Species* a1, int a1Size, Species* a2, int a2Size, Species* a3, int a3Size, Species* a4, int a4Size, Disaster& dis);
 void lunch(Species* set, int size);
+void restUp(Species* set, int size);
 std::ostream& operator<<(std::ostream& ost, Species& set);
 #endif

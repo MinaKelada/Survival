@@ -6,6 +6,7 @@ Environment::Environment(){
 	setEnv();
 }
 void Environment::setEnv(){
+	//sets capacity, food, type, and type name
 	capacity_ = rand() % 1001+100;
 	type_ = rand() % 4;
 	switch(type_){
@@ -29,6 +30,7 @@ void Environment::setEnv(){
 	
 }
 void Environment::giveEnvironment(Species& spec){
+	//gives environment to species object envo_
 	spec.setEnvo(*this);
 
 }

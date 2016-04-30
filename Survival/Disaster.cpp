@@ -6,6 +6,7 @@ Disaster::Disaster(){
 	reset();
 }
 void Disaster::affect(Species& C){
+	//safely affects the species object based on the environment that it is in
 	if (C.isNotDead()){
 		setType(C);
 		if (C.getSpeed() < speed_){
@@ -17,6 +18,7 @@ void Disaster::affect(Species& C){
 	}
 }
 void Disaster::setType(const Species& C){
+	//sets type based on species' environment
 	switch (C.getType()){
 	case 0:
 		strcpy(typeName_, "an avalanche");
@@ -33,6 +35,7 @@ void Disaster::setType(const Species& C){
 	}
 }
 void Disaster::reset(){
+	//resets disaster so that it can be continously used in loop
 	strength_ = rand() % 31;
 	speed_ = rand() % 51;
 }

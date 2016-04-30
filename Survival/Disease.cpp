@@ -6,6 +6,7 @@ using namespace std;
 			reset();
 		}
 		void Disease::reset(){
+			//allows the disease function to be continiously used in a while loop without having to create new disease objects
 			strength_ = rand() % 21;
 			contagious_ = rand() % 50;
 			affects_ = rand() % 4; //0 = health, 1 = strength, 2 = speed, 3 intelligence
@@ -25,6 +26,7 @@ using namespace std;
 			}
 		}
 	void Disease::infect(Species& C){
+		//safely infects species object
 		if (C.isNotDead()){
 			bool infected = 0;
 			int chance = rand() % 101;

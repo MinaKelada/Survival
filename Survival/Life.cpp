@@ -8,12 +8,14 @@ using namespace std;
 void Life::noUser(){
 	int i;
 	int year = 0;
+	//initial sets of environments, disease, and disaster
 	Environment a;
 	Environment b;
 	Environment c;
 	Environment d;
 	Disaster disaster;
 	Disease disease;
+	//random amount of species objects in each array
 	int a1Size = 1 + rand() % 10;
 	Species* a1 = new Species[a1Size];
 	int a2Size = 1 + rand() % 10;
@@ -22,6 +24,7 @@ void Life::noUser(){
 	Species* a3 = new Species[a3Size];
 	int a4Size = 1 + rand() % 10;
 	Species* a4 = new Species[a4Size];
+	//sets names for all species objects
 	for (i = 0; i < a1Size; i++){
 		a1[i].setAIName('a', i);
 		a1[i].setClan('a');
@@ -52,12 +55,20 @@ void Life::noUser(){
 		a4[i].displayEnvo();
 		}
 	while (!TotalDead(a1, a1Size) && !TotalDead(a2, a2Size) && !TotalDead(a3, a3Size) && !TotalDead(a4, a4Size) && year < 10){
+		//while loop runs until one species goes extinct or ten years pass
+		//ten years function added to ensure that the objects are deleted after
 		year++;
 		cout << "Year: " << year << endl;
+		//feeding, healing, and aging
 		lunch(a1, a1Size);
+		restUp(a1, a1Size); // added in because I believe heal function has not been used in program yet
 		lunch(a2, a2Size);
+		restUp(a2, a2Size);
 		lunch(a3, a3Size);
+		restUp(a3, a3Size);
 		lunch(a4, a4Size);
+		restUp(a4, a4Size);
+		//mating
 		if (matingMinimum(a1, a1Size)){
 			a1 = matingSeason(a1, a1Size);
 		}
@@ -70,12 +81,17 @@ void Life::noUser(){
 		if (matingMinimum(a4, a4Size)){
 			a4 = matingSeason(a4, a4Size);
 		}
+		//disease
 		fluSeason(a1, a1Size, a2, a2Size, a3, a3Size, a4, a4Size, disease);
+		//disaster
 		tornadoSeason(a1, a1Size, a2, a2Size, a3, a3Size, a4, a4Size, disaster);
+		//fight
 		FightNight4(a1, a1Size, a2, a2Size, a3, a3Size, a4, a4Size);
+		//resets disease and disaster so the same objects can used through the while loop
 		disease.reset();
 		disaster.reset();
 	}
+	//if statements to give info for why the simulation ended
 	if (TotalDead(a1, a1Size)){
 		cout << "First species (a1, clan a) is extinct" << endl;
 	}
@@ -98,5 +114,5 @@ void Life::noUser(){
 	cout << "End of Simulation" << endl;
 }
 void Life::User(){
-
+	//maybe written at a later date to turn this simulation into a game similar to oregan trail
 }
